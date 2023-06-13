@@ -57,7 +57,7 @@ function Sidebar(props: any) {
       <Link data-testid="logo" to="/experiment" onClick={() => setKey("experiment")}>
         <div className="sidebar-logo">
           <img className="sidebar-logo-img" src="/logo.png" alt="logo" />
-          <h1>Submarine</h1>
+          <h1>智谱机器学习平台</h1>
         </div>
       </Link>
       <div style={{ height: "calc(100% - 64px)", overflow: "overlay" }}>

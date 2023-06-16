@@ -115,7 +115,7 @@ function Sidebar(props: any) {
               Model
             </Link>
           </Menu.Item>
-          <Menu.Item data-testid="data-item" key="data" icon={<BarChartOutlined />} disabled={true}>
+          {/* <Menu.Item data-testid="data-item" key="data" icon={<BarChartOutlined />} disabled={true}>
             <Link data-testid="data-link" to="/data">
               Data
             </Link>
@@ -129,7 +129,7 @@ function Sidebar(props: any) {
             <Link data-testid="interpreter-link" to="/interpreter">
               Interpreter
             </Link>
-          </Menu.Item>
+          </Menu.Item> */}
         </Menu>
       </div>
     </Sider>

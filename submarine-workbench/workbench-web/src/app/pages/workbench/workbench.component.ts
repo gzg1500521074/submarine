@@ -53,7 +53,7 @@ export class WorkbenchComponent implements OnInit {
       title: 'Home',
       iconType: 'home',
       routerLink: '/workbench/home',
-      disabled: true,
+      disabled: false,
     },
     {
       title: 'Notebook',
@@ -107,7 +107,7 @@ export class WorkbenchComponent implements OnInit {
       routerLink: '/workbench/model',
       disabled: false,
     },
-    {
+    /* {
       title: 'Data',
       iconType: 'bar-chart',
       routerLink: '/workbench/data',
@@ -124,7 +124,7 @@ export class WorkbenchComponent implements OnInit {
       iconType: 'api',
       routerLink: '/workbench/interpreter',
       disabled: true,
-    },
+    }, */
   ];
   userInfo$: Observable<UserInfo>;
 

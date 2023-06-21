@@ -97,6 +97,10 @@ export class UserService {
   createUser(sysUser: Partial<SysUser>): Observable<SysUser> {
     const apiUrl = this.baseApi.getRestApi('/sys/user/add');
     sysUser['password'] = md5(sysUser.password);
+    if(sysUser['status'] == 'SYS_USER_STATUS_LOCKED')
+      sysUser['deleted'] = 1;
+    else
+      sysUser['deleted'] = 0;
 
     return this.httpClient.post<Rest<SysUser>>(apiUrl, sysUser).pipe(
       switchMap((res) => {
@@ -111,7 +115,11 @@ export class UserService {
 
   updateUser(sysUser: Partial<SysUser>): Observable<SysUser> {
     const apiUrl = this.baseApi.getRestApi('/sys/user/edit');
-
+    if(sysUser['status'] == 'SYS_USER_STATUS_LOCKED')
+      sysUser['deleted'] = 1;
+    else
+      sysUser['deleted'] = 0;
+      
     return this.httpClient.put<Rest<SysUser>>(apiUrl, sysUser).pipe(
       switchMap((res) => {
         if (res.success) {

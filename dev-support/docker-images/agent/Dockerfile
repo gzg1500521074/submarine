@@ -13,23 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM alpine:3.16.3
+FROM duxinglangzi/alpine-java11:latest
 MAINTAINER Apache Software Foundation <dev@submarine.apache.org>
 
 # If you are in China, enabling the following two lines of code can speed up the build of the image, but it may cause failure in travis.
 # So when submitting the code, please make sure the following 2 lines of code are in a commented state
-RUN echo "http://mirrors.ustc.edu.cn/alpine/v3.10/main" > /etc/apk/repositories
-RUN echo "http://mirrors.ustc.edu.cn/alpine/v3.10/community" >> /etc/apk/repositories
+# RUN echo "http://mirrors.ustc.edu.cn/alpine/v3.10/main" > /etc/apk/repositories
+# RUN echo "http://mirrors.ustc.edu.cn/alpine/v3.10/community" >> /etc/apk/repositories
 
 # INSTALL openjdk
-RUN apk update && \
-    apk add --no-cache openjdk11 tzdata bash tini&& \
-    cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
-    echo Asia/Shanghai > /etc/timezone && \
-    apk del tzdata && \
-    rm -rf /tmp/* /var/cache/apk/*
+RUN rm -rf /tmp/* /var/cache/apk/*
 
-ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk/jre
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk
 
 # Install Submarine
 RUN mkdir "/opt/submarine-agent"

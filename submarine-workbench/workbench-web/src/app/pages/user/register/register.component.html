@@ -58,7 +58,7 @@
           type="password"
           nz-input
           formControlName="password"
-          placeholder="Password"
+          placeholder="新密码"
           (ngModelChange)="updateConfirmValidator()"
         />
       </nz-input-group>
@@ -80,7 +80,7 @@
           type="password"
           formControlName="checkPassword"
           id="checkPassword"
-          placeholder="Re-enter password"
+          placeholder="确认密码"
         />
       </nz-input-group>
       <ng-template #errorTpl let-control>
@@ -111,8 +111,8 @@
   <nz-form-item>
     <nz-form-control [nzSpan]="14" [nzOffset]="5">
       <span>
-        Already have an account?
-        <a [routerLink]="['/user/login']">Sign-In</a>
+        已经有了一个账号?
+        <a [routerLink]="['/user/login']">去登录</a>
       </span>
     </nz-form-control>
   </nz-form-item>

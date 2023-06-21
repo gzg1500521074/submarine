@@ -49,12 +49,12 @@ export class WorkbenchComponent implements OnInit {
   isCollapsed: boolean = false;
   highlighted: boolean = true;
   menus: SidebarMenu[] = [
-    {
+    /* {
       title: 'Home',
       iconType: 'home',
       routerLink: '/workbench/home',
       disabled: false,
-    },
+    }, */
     {
       title: 'Notebook',
       iconType: 'book',
@@ -89,11 +89,11 @@ export class WorkbenchComponent implements OnInit {
           routerLink: '/workbench/manager/user',
           disabled: false,
         },
-        {
+      /*   {
           title: 'Data dict',
           routerLink: '/workbench/manager/dataDict',
           disabled: false,
-        },
+        }, */
         {
           title: 'Department',
           routerLink: '/workbench/manager/department',

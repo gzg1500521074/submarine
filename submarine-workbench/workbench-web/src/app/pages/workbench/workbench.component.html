@@ -28,7 +28,7 @@
   <div class="sidebar-logo">
     <a routerLink="/workbench/experiment">
       <img src="/assets/logo.png" alt="logo" />
-      <h1>智谱机器学习平台</h1>
+      <!-- <h1>智谱机器学习平台</h1> -->
     </a>
   </div>
   <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
@@ -95,11 +95,11 @@
         </div>
         <nz-dropdown-menu #userInfoMenu="nzDropdownMenu">
           <ul nz-menu>
-            <li nz-menu-item nzDisabled>
+            <!-- <li nz-menu-item nzDisabled>
               <i nz-icon nzType="setting"></i>
               {{ 'UserInfo setting' | translate }}
             </li>
-            <li nz-menu-divider></li>
+            <li nz-menu-divider></li> -->
             <li nz-menu-item (click)="logout()">
               <i nz-icon nzType="logout"></i>
               {{ 'Sign out' | translate }}

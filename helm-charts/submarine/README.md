@@ -33,7 +33,7 @@ helm template --debug submarine ./helm-charts/submarine -n submarine
 
 To install the chart with the release name `submarine`:
 
-Submarine requires istio to provide the ingress, we assume you have istio installed on K8s.   
+Submarine requires istio to provide the ingress, we assume you have istio installed on K8s.
 If not, you can refer to https://istio.io/latest/docs/setup/install/
 
 ```shell
@@ -92,8 +92,8 @@ The following table lists the configurable parameters of the MySQL chart and the
 | `imagePullSecrets`                           | Image pull secrets                                                                                                                             | `[]`                                       |
 | `dev`                                        | Tell helm to install submarine-operator or not in dev mode                                                                                     | `false`                                    |
 | `storageClass.reclaimPolicy`                 | Determine the action after the persistent volume is released                                                                                   | `Delete`                                   |
-| `storageClass.volumeBindingMode`             | Control when volume binding and dynamically provisioning should occur                                                                          | `Immediate`                                |
-| `storageClass.provisioner`                   | Determine what volume plugin is used for provisioning PVs                                                                                      | `k8s.io/minikube-hostpath`                 |
+| `storageClass.volumeBindingMode`             | Control when volume binding and dynamically provisioning should occur                                                                          | `WaitForFirstConsumer`                                |
+| `storageClass.provisioner`                   | Determine what volume plugin is used for provisioning PVs                                                                                      | `k8s.io/kubernetes.io/no-provisioner`                 |
 | `storageClass.parameters`                    | Describe volumes belonging to the storage class                                                                                                | `{}`                                       |
 | `clusterType`                                | k8s cluster type. can be: kubernetes or openshift                                                                                              | `kubernetes`                               |
 | `podSecurityPolicy.create`                   | Specifies whether a PodSecurityPolicy should be created, this configuration enables the database/minio/server to set securityContext.runAsUser | `true`                                     |

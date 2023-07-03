@@ -22,7 +22,7 @@ Set up storage class fields
 {{ with .Values.storageClass }}
 reclaimPolicy: {{ .reclaimPolicy | default "Delete" }}
 volumeBindingMode: {{ .volumeBindingMode | default "Immediate" }}
-provisioner: {{ .provisioner | default "k8s.io/minikube-hostpath" }}
+provisioner: {{ .provisioner | default "k8s.io/minikube-hostpat" }}
 {{ if .parameters }}
 parameters:
   {{ range $key, $val := .parameters }}

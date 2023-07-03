@@ -29,9 +29,9 @@ storageClass:
   # reclaimPolicy is to determine the action after the persistent volume is released
   reclaimPolicy: Delete
   # volumeBindingMode controls when volume binding and dynamically provisioning should occur
-  volumeBindingMode: Immediate
+  volumeBindingMode: WaitForFirstConsumer
   # provisioner is to determine what volume plugin is used for provisioning PVs
-  provisioner: k8s.io/minikube-hostpath
+  provisioner: kubernetes.io/no-provisioner
   # parameters describe volumes belonging to the storage class
   parameters: {}
 
@@ -51,7 +51,7 @@ istio:
   # Use Istio default gateway implementation,
   # you can find the specified gateway service with this labels by the command:
   # kubectl get service -n istio-system -l istio=ingressgateway
-  gatewaySelector: 
+  gatewaySelector:
     istio: ingressgateway
 
 # training operator

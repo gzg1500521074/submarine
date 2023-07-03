@@ -16,8 +16,8 @@
 
 set -euxo pipefail
 
-SUBMARINE_VERSION=0.8.0-SNAPSHOT
-SUBMARINE_IMAGE_NAME="apache/submarine:quickstart-${SUBMARINE_VERSION}"
+SUBMARINE_VERSION=v0.0.1
+SUBMARINE_IMAGE_NAME="harbor.nodefans.cn:8443/submarine/quickstart:${SUBMARINE_VERSION}"
 
 if [ -L ${BASH_SOURCE-$0} ]; then
   PWD=$(dirname $(readlink "${BASH_SOURCE-$0}"))
@@ -38,7 +38,7 @@ cp -r "${SUBMARINE_HOME}/submarine-sdk" "${CURRENT_PATH}/tmp"
 # build image
 cd ${CURRENT_PATH}
 echo "Start building the ${SUBMARINE_IMAGE_NAME} docker image ..."
-docker build -t ${SUBMARINE_IMAGE_NAME} .
+docker build --add-host storage.googleapis.com:172.217.160.112 -t ${SUBMARINE_IMAGE_NAME} .
 
 # clean temp file
 rm -rf "${CURRENT_PATH}/tmp"

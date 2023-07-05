@@ -29,11 +29,11 @@ storageClass:
   # reclaimPolicy is to determine the action after the persistent volume is released
   reclaimPolicy: Delete
   # volumeBindingMode controls when volume binding and dynamically provisioning should occur
-  volumeBindingMode: WaitForFirstConsumer
+  volumeBindingMode: Immediate
   # provisioner is to determine what volume plugin is used for provisioning PVs
-  provisioner: kubernetes.io/no-provisioner
+  provisioner: nfs-provisioner
   # parameters describe volumes belonging to the storage class
-  parameters: {}
+  parameters: {archiveOnDelete: 'false'}
 
 # k8s cluster type. can be: kubernetes or openshift
 clusterType: kubernetes

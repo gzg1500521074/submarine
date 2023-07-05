@@ -19,5 +19,7 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: submarine-storageclass
+  annotations:
+    storageclass.kubernetes.io/is-default-class: 'true'
 {{- template "storageClass.fields" . }}
 

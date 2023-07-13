@@ -51,15 +51,15 @@
           <nz-tag [nzColor]="statusColor[experimentInfo.status]">{{ experimentInfo.status  | translate }}</nz-tag>
         </td>
         <td class="td-action">
-          <a (click)="startExperiment()">{{'Start' | translate}}</a>
-          <nz-divider nzType="vertical"></nz-divider>
+          <!-- <a (click)="startExperiment()">{{'Start' | translate}}</a>
+          <nz-divider nzType="vertical"></nz-divider> -->
           <a nz-dropdown [nzDropdownMenu]="more">
             {{'More' | translate}}
             <i nz-icon nzType="down"></i>
           </a>
           <nz-dropdown-menu #more="nzDropdownMenu">
             <ul nz-menu nzSelectable>
-              <li nz-menu-item (click)="editExperiment()">{{'Edit' | translate}}</li>
+              <!-- <li nz-menu-item (click)="editExperiment()">{{'Edit' | translate}}</li> -->
               <li
                 nz-menu-item
                 nz-popconfirm

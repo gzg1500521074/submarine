@@ -109,9 +109,9 @@ first_dataset = datasets["train"].map(scale).take(1)
 for image, label in first_dataset:
     show_image(image)
     rest_request_ambassador(
-        endpoint="localhost:32080",
+        endpoint="http://36.103.203.235:32080/",
         # This prefix you can find in VirtualService in istio, command like:
         # kubectl describe VirtualService -n submarine-user-test -l model-name=${model_name}
-        prefix="/seldon/submarine-user-test/1/1/",
+        prefix="/seldon/submarine-user-test/submarine-model-1-41c357dc1874428d892155cba62459c4/",
         arr=image,
     )

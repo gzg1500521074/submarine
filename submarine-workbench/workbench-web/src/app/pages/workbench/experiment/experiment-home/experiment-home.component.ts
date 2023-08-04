@@ -113,11 +113,11 @@ export class ExperimentHomeComponent implements OnInit {
             // cal duration
             if (item.status === 'Succeeded') {
               const finTime = new Date(item.finishedTime);
-              const runTime = new Date(item.runningTime);
+              const runTime = item.runningTime ? new Date(item.runningTime) : new Date(item.createdTime);
               const result = (finTime.getTime() - runTime.getTime()) / 1000;
               item.duration = this.experimentService.durationHandle(result);
             } else if (item.runningTime) {
-              const runTime = new Date(item.runningTime);
+              const runTime = item.runningTime ? new Date(item.runningTime) : new Date(item.createdTime);
               const result = (currentTime.getTime() - runTime.getTime()) / 1000;
               item.duration = this.experimentService.durationHandle(result);
             } else {

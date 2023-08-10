@@ -17,39 +17,50 @@
  * under the License.
  */
 
+.logo {
+  height: 44px;
+  img {
+    height: inherit;
+  }
+}
+
 .content {
   height: 100vh;
   padding-top: 110px;
-  background: url("/assets/background.svg") no-repeat 50%;
-  background-size: 100%;
+  background-image: url('/assets/background.png');
+  background-position-y: 100px;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .inner {
+  width: 450px;
+  height: 500px;
+  padding-top: 56px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 19px 39px #dee1ff;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  position: absolute;
+  right: 90px;
+  top: 110px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.logo {
-  height: 44px;
-  display: flex;
-
-  img {
-    height: inherit;
-    margin-right: 16px;
-  }
-}
-
 .title {
   font-size: 30px;
-  color: rgba(0,0,0,.85);
-  font-family: Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;
+  color: rgba(0, 0, 0, 0.85);
+  font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
   font-weight: 600;
+  margin-top: 5px;
 }
 
 .desc {
   font-size: 14px;
-  color: rgba(0,0,0,.45);
+  color: rgba(0, 0, 0, 0.45);
   margin-top: 12px;
-  margin-bottom: 40px
+  margin-bottom: 40px;
 }

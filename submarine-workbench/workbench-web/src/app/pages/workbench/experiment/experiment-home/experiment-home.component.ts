@@ -72,8 +72,8 @@ export class ExperimentHomeComponent implements OnInit {
     });
 
     this.experimentService.emitInfo(null);
-    this.getTensorboardInfo(1000, 50000);
-    this.getMlflowInfo(1000, 100000);
+    // this.getTensorboardInfo(1000, 50000);
+    // this.getMlflowInfo(1000, 100000);
     this.onSwitchAutoReload();
   }
 

@@ -43,9 +43,9 @@
       <tr>
         <td>{{ experimentInfo.spec.meta.name }}</td>
         <td>{{ experimentInfo.experimentId }}</td>
-        <td>{{ experimentInfo.createdTime | date: 'M/d/yyyy, h:mm a' }}</td>
-        <td>{{ experimentInfo.runningTime | date: 'M/d/yyyy, h:mm a' }}</td>
-        <td>{{ experimentInfo.finishedTime | date: 'M/d/yyyy, h:mm a' }}</td>
+        <td>{{ experimentInfo.createdTime | date: 'yyyy-M-d H:mm' }}</td>
+        <td>{{ experimentInfo.runningTime | date: 'yyyy-M-d H:mm' }}</td>
+        <td>{{ experimentInfo.finishedTime | date: 'yyyy-M-d H:mm' }}</td>
         <td>{{ experimentInfo.duration }}</td>
         <td>
           <nz-tag [nzColor]="statusColor[experimentInfo.status]">{{ experimentInfo.status  | translate }}</nz-tag>

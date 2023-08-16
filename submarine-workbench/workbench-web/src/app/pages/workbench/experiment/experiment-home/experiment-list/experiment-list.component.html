@@ -17,14 +17,8 @@
  under the License.
 -->
 
-<nz-table
-  id="releaseTable"
-  nzBordered
-  #basicTable
-  [nzData]="experimentList"
-  [nzNoResult]="'No data' | translate"
-  [nzLoading]="isLoading"
->
+<nz-table id="releaseTable" nzBordered #basicTable [nzData]="experimentList" [nzNoResult]="'No data' | translate"
+  [nzLoading]="isLoading">
   <thead>
     <tr>
       <th>
@@ -58,9 +52,9 @@
       <td>
         <nz-tag [nzColor]="statusColor[data.status]">{{ data.status | translate}}</nz-tag>
       </td>
-      <td>{{ data.finishedTime | date: 'M/d/yyyy, h:mm a' }}</td>
-      <td>{{ data.createdTime | date: 'M/d/yyyy, h:mm a' }}</td>
-      <td>{{ data.runningTime | date: 'M/d/yyyy, h:mm a' }}</td>
+      <td>{{ data.finishedTime | date: 'yyyy-M-d H:mm' }}</td>
+      <td>{{ data.createdTime | date: 'yyyy-M-d H:mm' }}</td>
+      <td>{{ data.runningTime | date: 'yyyy-M-d H:mm' }}</td>
       <td>{{ data.duration }}</td>
       <td class="td-action">
         <a (click)="initModal.emit({ initMode: 'clone', initFormType: 'customized', id: null, spec: data.spec })">
@@ -75,14 +69,9 @@
           {{ 'Update' | translate }}
         </a>
         <nz-divider nzType="vertical"></nz-divider> -->
-        <a
-          nz-popconfirm
-          nzPlacement="left"
-          nzTitle="{{ 'Are you sure you want to delete?' | translate }}"
-          nzCancelText="{{ 'Cancel' | translate }}"
-          nzOkText="{{ 'Ok' | translate }}"
-          (nzOnConfirm)="onDeleteExperiment(data.experimentId)"
-        >
+        <a nz-popconfirm nzPlacement="left" nzTitle="{{ 'Are you sure you want to delete?' | translate }}"
+          nzCancelText="{{ 'Cancel' | translate }}" nzOkText="{{ 'Ok' | translate }}"
+          (nzOnConfirm)="onDeleteExperiment(data.experimentId)">
           {{ 'Delete' | translate }}
         </a>
       </td>

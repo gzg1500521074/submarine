@@ -31,7 +31,8 @@
       <p nz-typography>
         <span><strong>{{ 'Tags' | translate }}: </strong></span>
         <span *ngIf="!isModelInfoLoading">
-          <submarine-model-tags [modelName]="modelName" [tags]="selectedModelInfo.tags" [useVersionTags]="false" ></submarine-model-tags>
+          <submarine-model-tags [modelName]="modelName" [tags]="selectedModelInfo.tags"
+            [useVersionTags]="false"></submarine-model-tags>
         </span>
       </p>
       <p nz-typography>
@@ -46,14 +47,8 @@
       <i nz-icon nzType="form"></i>
     </ng-template>
   </nz-divider>
-  <nz-table
-    id="modelVersionsTable"
-    nzBordered
-    #basicTable
-    [nzData]="modelVersions"
-    [nzNoResult]="'No data' | translate"
-    [nzLoading]="isModelVersionsLoading"
-  >
+  <nz-table id="modelVersionsTable" nzBordered #basicTable [nzData]="modelVersions" [nzNoResult]="'No data' | translate"
+    [nzLoading]="isModelVersionsLoading">
     <thead>
       <tr>
         <th>{{ 'Version' | translate }}</th>
@@ -69,65 +64,37 @@
       <tr *ngFor="let data of basicTable.data; let i = index" class="model-info-item" [routerLink]="data.version">
         <td>{{ data.version }}</td>
         <td>{{ data.currentStage }}</td>
-        <td>{{ data.creationTime | date: 'M/d/yyyy, h:mm a' }}</td>
-        <td>{{ data.lastUpdatedTime | date: 'M/d/yyyy, h:mm a' }}</td>
+        <td>{{ data.creationTime | date: 'yyyy-M-d H:mm' }}</td>
+        <td>{{ data.lastUpdatedTime | date: 'yyyy-M-d H:mm' }}</td>
         <td>
-          <submarine-model-version-tag *ngFor="let tag of data.tags" [tag]="tag" [type]="'default'"></submarine-model-version-tag>
+          <submarine-model-version-tag *ngFor="let tag of data.tags" [tag]="tag"
+            [type]="'default'"></submarine-model-version-tag>
         </td>
         <td>{{ data.description }}</td>
         <td>
-          <a
-            id="btn-createServe{{ i }}"
-            *ngIf="data.currentStage!='Production'"
-            class="icon-link"
-            nz-popconfirm
-            nzPlacement="left"
-            nzTitle="{{ 'Are you sure you want to serve the model?' | translate }}"
-            nzCancelText="{{ 'Cancel' | translate }}"
-            nzOkText="{{ 'Ok' | translate }}"
-            (nzOnConfirm)="onCreateServe(data.modelVersionId, data.version)"
-            (click)="preventEvent($event)"
-          >
-            <i id="icon-createServe{{ i }}" nz-icon nzType="play-circle" nzTheme="fill" class="model-info-icon" ></i>
+          <a id="btn-createServe{{ i }}" *ngIf="data.currentStage!='Production'" class="icon-link" nz-popconfirm
+            nzPlacement="left" nzTitle="{{ 'Are you sure you want to serve the model?' | translate }}"
+            nzCancelText="{{ 'Cancel' | translate }}" nzOkText="{{ 'Ok' | translate }}"
+            (nzOnConfirm)="onCreateServe(data.modelVersionId, data.version)" (click)="preventEvent($event)">
+            <i id="icon-createServe{{ i }}" nz-icon nzType="play-circle" nzTheme="fill" class="model-info-icon"></i>
           </a>
-          <a
-            id="anchor-preview{{ i }}"
-            *ngIf="data.currentStage=='Production'"
-            class="icon-link"
-            nz-popconfirm
-            nzPlacement="left"
-            nzTitle="{{ 'Are you sure you want to delete the model serve?' | translate }}"
-            nzCancelText="{{ 'Cancel' | translate }}"
-            nzOkText="{{ 'Ok' | translate }}"
-            (nzOnConfirm)="onDeleteServe(data.modelVersionId, data.version)"
-            (click)="preventEvent($event)"
-          >
+          <a id="anchor-preview{{ i }}" *ngIf="data.currentStage=='Production'" class="icon-link" nz-popconfirm
+            nzPlacement="left" nzTitle="{{ 'Are you sure you want to delete the model serve?' | translate }}"
+            nzCancelText="{{ 'Cancel' | translate }}" nzOkText="{{ 'Ok' | translate }}"
+            (nzOnConfirm)="onDeleteServe(data.modelVersionId, data.version)" (click)="preventEvent($event)">
             <i id="icon-pause{{ i }}" nz-icon nzType="pause-circle" nzTheme="fill" class="model-info-icon"></i>
           </a>
           <nz-divider nzType="vertical"></nz-divider>
-          <a
-            id="anchor-preview{{ i }}"
-            *ngIf="data.currentStage!=='Production'"
-            class="icon-link"
-            nz-popconfirm
-            nzPlacement="left"
-            nzTitle="{{ 'Are you sure you want to delete the model?' | translate }}"
-            nzCancelText="{{ 'Cancel' | translate }}"
-            nzOkText="{{ 'Ok' | translate }}"
-            (nzOnConfirm)="onDeleteModelVersion(data.version)"
-            (click)="preventEvent($event)"
-          >
-            <i nz-icon nzType="delete" nzTheme="fill" class="model-info-icon" ></i>
+          <a id="anchor-preview{{ i }}" *ngIf="data.currentStage!=='Production'" class="icon-link" nz-popconfirm
+            nzPlacement="left" nzTitle="{{ 'Are you sure you want to delete the model?' | translate }}"
+            nzCancelText="{{ 'Cancel' | translate }}" nzOkText="{{ 'Ok' | translate }}"
+            (nzOnConfirm)="onDeleteModelVersion(data.version)" (click)="preventEvent($event)">
+            <i nz-icon nzType="delete" nzTheme="fill" class="model-info-icon"></i>
           </a>
-          <a
-            id="anchor-preview{{ i }}"
-            *ngIf="data.currentStage==='Production'"
-            class="icon-link"
-            nzTooltipTitle='{{ "The model is in \"Production\" stage. It cannot be deleted." | translate }}'
-            nz-tooltip
-            (click)="preventEvent($event)"
-          >
-            <i nz-icon nzType="delete" nzTheme="fill" class="model-info-icon" ></i>
+          <a id="anchor-preview{{ i }}" *ngIf="data.currentStage==='Production'" class="icon-link"
+            nzTooltipTitle='{{ "The model is in \"Production\" stage. It cannot be deleted." | translate }}' nz-tooltip
+            (click)="preventEvent($event)">
+            <i nz-icon nzType="delete" nzTheme="fill" class="model-info-icon"></i>
           </a>
         </td>
       </tr>

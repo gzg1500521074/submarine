@@ -43,7 +43,7 @@
   <select id="selectAll" parameterType="java.lang.String" resultMap="ExperimentEntityResultMap">
     select
     <include refid="Base_Column_List" />
-    from experiment
+    from experiment order by create_time desc;
   </select>
 
   <select id="select" parameterType="java.lang.String" resultMap="ExperimentEntityResultMap">

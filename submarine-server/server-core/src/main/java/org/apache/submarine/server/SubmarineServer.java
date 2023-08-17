@@ -245,6 +245,12 @@ public class SubmarineServer extends ResourceConfig {
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp)
                 throws ServletException, IOException {
+
+          // 清除缓存
+          resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+          resp.setHeader("Pragma", "no-cache"); // HTTP 1.0
+          resp.setHeader("Expires", "0"); // Proxies
+
           resp.setContentType(contentType);
           resp.setCharacterEncoding(encoding);
           resp.getWriter().write(staticProviderJs);
@@ -406,6 +412,11 @@ public class SubmarineServer extends ResourceConfig {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
+      // 清除缓存
+      response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+      response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+      response.setHeader("Expires", "0"); // Proxies
+
       response.setContentType("text/html");
       response.encodeRedirectURL("/");
       response.setStatus(HttpServletResponse.SC_OK);

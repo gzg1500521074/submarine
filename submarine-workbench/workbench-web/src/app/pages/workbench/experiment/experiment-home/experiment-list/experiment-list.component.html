@@ -17,7 +17,7 @@
  under the License.
 -->
 
-<nz-table id="releaseTable" nzBordered #basicTable [nzData]="experimentList" [nzNoResult]="'No data' | translate"
+<nz-table id="releaseTable" [nzFrontPagination]="false" [nzShowPagination]="false" nzBordered #basicTable [nzData]="experimentList" [nzNoResult]="'No data' | translate"
   [nzLoading]="isLoading">
   <thead>
     <tr>
@@ -78,3 +78,4 @@
     </tr>
   </tbody>
 </nz-table>
+

@@ -20,7 +20,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Rest } from '@submarine/interfaces';
-import { ExperimentInfo } from '@submarine/interfaces/experiment-info';
+import { ExperimentInfo, ExperimentInfoByPage } from '@submarine/interfaces/experiment-info';
 import { ExperimentSpec } from '@submarine/interfaces/experiment-spec';
 import { ExperimentTemplate, ExperimentTemplateSpec } from '@submarine/interfaces/experiment-template';
 import { ExperimentTemplateSubmit } from '@submarine/interfaces/experiment-template-submit';
@@ -47,9 +47,9 @@ export class ExperimentService {
     this.emitInfoSource.next(id);
   }
 
-  fetchExperimentList(): Observable<ExperimentInfo[]> {
-    const apiUrl = this.baseApi.getRestApi(`/v1/experiment?pageNum=1&pageSize=2`);
-    return this.httpClient.get<Rest<ExperimentInfo[]>>(apiUrl).pipe(
+  fetchExperimentList(name: string, pageNum: number, pageSize: number): Observable<ExperimentInfoByPage> {
+    const apiUrl = this.baseApi.getRestApi(`/v1/experiment?name=${name}&pageNum=${pageNum}&pageSize=${pageSize}`);
+    return this.httpClient.get<Rest<ExperimentInfoByPage>>(apiUrl).pipe(
       switchMap((res) => {
         if (res.success) {
           return of(res.result);

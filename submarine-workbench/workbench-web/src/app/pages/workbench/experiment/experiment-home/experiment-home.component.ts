@@ -45,6 +45,12 @@ export class ExperimentHomeComponent implements OnInit {
   selectAllChecked: boolean = false;
   switchValue: boolean = true;
 
+  // 查询与分页相关
+  name: string = '';
+  pageNum: number = 1;
+  pageSize: number = 3;
+  total: number = 0;
+
   // auto reload
   reloadPeriod: number = 3000; // default 3s
   reloadInterval = interval(this.reloadPeriod);
@@ -68,7 +74,7 @@ export class ExperimentHomeComponent implements OnInit {
 
   ngOnInit() {
     this.experimentFormService.fetchListService.subscribe(() => {
-      this.fetchExperimentList(false);
+      this.fetchExperimentList(false, this.name, this.pageNum, this.pageSize);
     });
 
     this.experimentService.emitInfo(null);
@@ -83,20 +89,29 @@ export class ExperimentHomeComponent implements OnInit {
     }
   }
 
-  fetchExperimentList(isAutoReload: boolean) {
-    this.experimentService.fetchExperimentList().subscribe(
-      (list) => {
+  // 修改页码事件
+  chagePageIndex(index: number): void {
+    console.log("index => ", index)
+    this.fetchExperimentList(false, this.name, index, this.pageSize);
+  }
+
+  fetchExperimentList(isAutoReload: boolean, name: string, pageNum: number, pageSize: number) {
+    this.experimentService.fetchExperimentList(name, pageNum, pageSize).subscribe(
+      (result) => {
+        // 总条数
+        this.total = result.total;
+
         this.isListLoading = false;
         // Partial refresh required
         // exists list size
         const currentListSize = this.experimentList.length;
         // The backend returns a real-time list
-        const newListSize = list.length;
+        const newListSize = result.list.length;
         const currentTime = new Date();
         // for loop experiment list
         for (let i = 0; i < newListSize; i++) {
           // The latest experiment info
-          const experiment = list[i]
+          const experiment = result.list[i]
           // If a new row is found, insert it directly into
           if (i > currentListSize - 1) {
             this.experimentList = [...this.experimentList, experiment]
@@ -154,12 +169,14 @@ export class ExperimentHomeComponent implements OnInit {
   }
 
   onDeleteExperiment(id: string, onMessage: boolean) {
+    console.log("delete id => ", id, 'onMessage => ', onMessage);
+    return;
     this.experimentService.deleteExperiment(id).subscribe(
       () => {
         if (onMessage === true) {
           this.nzMessageService.success('Delete Experiment Successfully!');
         }
-        this.fetchExperimentList(true);
+        this.fetchExperimentList(true, this.name, this.pageNum, this.pageSize);
       },
       (err) => {
         if (onMessage === true) {
@@ -185,7 +202,7 @@ export class ExperimentHomeComponent implements OnInit {
   onSwitchAutoReload() {
     if (this.switchValue) {
       this.reloadSub = this.reloadInterval.subscribe((res) => {
-        this.fetchExperimentList(true);
+        this.fetchExperimentList(true, this.name, this.pageNum, this.pageSize);
       });
     } else {
       if (this.reloadSub) {

@@ -98,9 +98,10 @@ export class ExperimentCustomizedFormComponent implements OnInit, OnDestroy {
       gitRepo: new FormControl(null, [])
     });
 
-    this.experimentService.fetchExperimentList().subscribe(
-      (list) => {
-        list.forEach((item) => {
+    // 只展示最近的10条镜像列表
+    this.experimentService.fetchExperimentList('', 1, 10).subscribe(
+      (result) => {
+        result.list.forEach((item) => {
           this.imageList.push(item.spec.environment.image);
         });
       },

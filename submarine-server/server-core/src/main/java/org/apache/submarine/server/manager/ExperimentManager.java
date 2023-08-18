@@ -30,6 +30,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.ws.rs.core.Response.Status;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -37,12 +39,13 @@ import org.apache.submarine.commons.utils.SubmarineConfiguration;
 import org.apache.submarine.commons.utils.exception.SubmarineRuntimeException;
 import org.apache.submarine.server.SubmarineServer;
 import org.apache.submarine.server.SubmitterManager;
+import org.apache.submarine.server.api.Submitter;
 import org.apache.submarine.server.api.experiment.Experiment;
 import org.apache.submarine.server.api.experiment.ExperimentId;
-import org.apache.submarine.server.api.Submitter;
 import org.apache.submarine.server.api.experiment.ExperimentLog;
-import org.apache.submarine.server.api.experiment.TensorboardInfo;
+import org.apache.submarine.server.api.experiment.ExperimentPageResult;
 import org.apache.submarine.server.api.experiment.MlflowInfo;
+import org.apache.submarine.server.api.experiment.TensorboardInfo;
 import org.apache.submarine.server.api.spec.ExperimentSpec;
 import org.apache.submarine.server.database.experiment.entity.ExperimentEntity;
 import org.apache.submarine.server.database.experiment.service.ExperimentService;
@@ -52,6 +55,7 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.mlflow.tracking.MlflowClient;
+
 
 /**
  * It's responsible for managing the experiment CRUD and cache them.
@@ -158,18 +162,27 @@ public class ExperimentManager {
    * @return list
    * @throws SubmarineRuntimeException the service error
    */
-  public List<Experiment> listExperimentsByStatus(String name,
-                                                  int pageNum,
-                                                  int pageSize) throws SubmarineRuntimeException {
+  public ExperimentPageResult listExperimentsByStatus(String name,
+                                                      int pageNum,
+                                                      int pageSize) throws SubmarineRuntimeException {
     List<Experiment> experimentList = new ArrayList<>();
+    PageHelper.startPage(pageNum, pageSize);
     List<ExperimentEntity> entities = experimentService.selectAllByName(name, pageNum, pageSize);
-
+    PageInfo<ExperimentEntity> pageInfo = new PageInfo<ExperimentEntity>(entities);
     for (ExperimentEntity entity : entities) {
       Experiment experiment = buildExperimentFromEntity(entity);
       experimentList.add(experiment);
     }
+
+    ExperimentPageResult experimentPageResult = new ExperimentPageResult(
+            pageNum,
+            pageSize,
+            pageInfo.getTotal(),
+            experimentList);
+
+
     LOG.info("List experiment: {}", experimentList.size());
-    return experimentList;
+    return experimentPageResult;
   }
 
   /**

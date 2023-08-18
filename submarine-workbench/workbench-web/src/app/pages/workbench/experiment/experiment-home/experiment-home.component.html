@@ -92,5 +92,8 @@
     (initModal)="onInitModal($event)"
     [(selectAllChecked)]="selectAllChecked"
   ></submarine-experiment-list>
+  <div class="page-box">
+    <nz-pagination [nzPageIndex]="pageNum" [nzPageSize]="pageSize" [nzTotal]="total" (nzPageIndexChange)="chagePageIndex($event)"></nz-pagination>
+  </div>
   <submarine-experiment-form #form></submarine-experiment-form>
 </div>

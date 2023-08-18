@@ -19,6 +19,15 @@
 
 import { ExperimentSpec } from '@submarine/interfaces/experiment-spec';
 
+
+export interface ExperimentInfoByPage {
+  pageNum: number,
+  pageSize: number,
+  total: number,
+  pages: number,
+  list: ExperimentInfo[]
+}
+
 export interface ExperimentInfo {
   experimentId: string;
   name: string;

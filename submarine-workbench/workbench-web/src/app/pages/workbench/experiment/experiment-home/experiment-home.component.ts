@@ -48,7 +48,7 @@ export class ExperimentHomeComponent implements OnInit {
   // 查询与分页相关
   name: string = '';
   pageNum: number = 1;
-  pageSize: number = 3;
+  pageSize: number = 10;
   total: number = 0;
 
   // auto reload
@@ -92,7 +92,19 @@ export class ExperimentHomeComponent implements OnInit {
   // 修改页码事件
   chagePageIndex(index: number): void {
     console.log("index => ", index)
+    this.switchValue = false;
+    this.onSwitchAutoReload();
     this.fetchExperimentList(false, this.name, index, this.pageSize);
+  }
+
+  // 查询
+  search(name: string) {
+    console.log('name => ', name)
+
+    this.pageNum = 1;
+    this.switchValue = false;
+    this.onSwitchAutoReload();
+    this.fetchExperimentList(false, this.name.trim(), this.pageNum, this.pageSize);
   }
 
   fetchExperimentList(isAutoReload: boolean, name: string, pageNum: number, pageSize: number) {
@@ -107,24 +119,13 @@ export class ExperimentHomeComponent implements OnInit {
         const currentListSize = this.experimentList.length;
         // The backend returns a real-time list
         const newListSize = result.list.length;
+        this.experimentList = result.list;
         const currentTime = new Date();
         // for loop experiment list
-        for (let i = 0; i < newListSize; i++) {
-          // The latest experiment info
-          const experiment = result.list[i]
-          // If a new row is found, insert it directly into
-          if (i > currentListSize - 1) {
-            this.experimentList = [...this.experimentList, experiment]
-          } else {
+        for (let i = 0; i < this.experimentList.length; i++) {
             // Otherwise compare relevant information and update
             const item = this.experimentList[i];
-            // compare
-            const keys = Object.keys(item);
-            for (const key of keys) {
-              if (key !== 'duration' && !isEqual(item[key], experiment[key])) {
-                item[key] = experiment[key]
-              }
-            }
+
             // cal duration
             if (item.status === 'Succeeded') {
               const finTime = new Date(item.finishedTime);
@@ -147,11 +148,6 @@ export class ExperimentHomeComponent implements OnInit {
               const result = (currentTime.getTime() - acceptedTime.getTime()) / 1000;
               item.duration = this.experimentService.durationHandle(result);
             }
-          }
-        }
-        // Delete redundant rows
-        if (currentListSize > newListSize) {
-          this.experimentList = this.experimentList.splice(0, newListSize - currentListSize);
         }
 
         if (!isAutoReload) {
@@ -170,13 +166,12 @@ export class ExperimentHomeComponent implements OnInit {
 
   onDeleteExperiment(id: string, onMessage: boolean) {
     console.log("delete id => ", id, 'onMessage => ', onMessage);
-    return;
     this.experimentService.deleteExperiment(id).subscribe(
       () => {
         if (onMessage === true) {
           this.nzMessageService.success('Delete Experiment Successfully!');
         }
-        this.fetchExperimentList(true, this.name, this.pageNum, this.pageSize);
+        this.fetchExperimentList(false, this.name, this.pageNum, this.pageSize);
       },
       (err) => {
         if (onMessage === true) {
@@ -202,6 +197,7 @@ export class ExperimentHomeComponent implements OnInit {
   onSwitchAutoReload() {
     if (this.switchValue) {
       this.reloadSub = this.reloadInterval.subscribe((res) => {
+        this.pageNum = 1;
         this.fetchExperimentList(true, this.name, this.pageNum, this.pageSize);
       });
     } else {

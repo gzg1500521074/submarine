@@ -48,7 +48,7 @@ export class ExperimentService {
   }
 
   fetchExperimentList(): Observable<ExperimentInfo[]> {
-    const apiUrl = this.baseApi.getRestApi('/v1/experiment');
+    const apiUrl = this.baseApi.getRestApi(`/v1/experiment?pageNum=1&pageSize=2`);
     return this.httpClient.get<Rest<ExperimentInfo[]>>(apiUrl).pipe(
       switchMap((res) => {
         if (res.success) {

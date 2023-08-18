@@ -154,13 +154,13 @@ public class ExperimentManager {
   /**
    * List experiments.
    *
-   * @param status status, if null will return all experiments
+   * @param name status, if null will return all experiments
    * @return list
    * @throws SubmarineRuntimeException the service error
    */
-  public List<Experiment> listExperimentsByStatus(String status) throws SubmarineRuntimeException {
+  public List<Experiment> listExperimentsByStatus(String name, int pageNum, int pageSize) throws SubmarineRuntimeException {
     List<Experiment> experimentList = new ArrayList<>();
-    List<ExperimentEntity> entities = experimentService.selectAll();
+    List<ExperimentEntity> entities = experimentService.selectAllByName(name, pageNum, pageSize);
 
     for (ExperimentEntity entity : entities) {
       Experiment experiment = buildExperimentFromEntity(entity);

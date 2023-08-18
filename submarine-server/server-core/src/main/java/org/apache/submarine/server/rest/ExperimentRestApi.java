@@ -32,6 +32,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
+import com.github.pagehelper.PageInfo;
 import com.google.common.annotations.VisibleForTesting;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,6 +44,7 @@ import org.apache.submarine.commons.utils.exception.SubmarineRuntimeException;
 import org.apache.submarine.server.api.experiment.Experiment;
 import org.apache.submarine.server.api.experiment.TensorboardInfo;
 import org.apache.submarine.server.api.experiment.MlflowInfo;
+import org.apache.submarine.server.database.experiment.entity.ExperimentEntity;
 import org.apache.submarine.server.manager.ExperimentManager;
 import org.apache.submarine.server.manager.ExperimentTemplateManager;
 import org.apache.submarine.server.api.experiment.ExperimentLog;
@@ -148,11 +150,14 @@ public class ExperimentRestApi {
       responses = {
           @ApiResponse(description = "successful operation", content = @Content(
               schema = @Schema(implementation = JsonResponse.class)))})
-  public Response listExperiments(@QueryParam("status") String status) {
+  public Response listExperiments(@QueryParam("name") String name,
+                                  @QueryParam("pageNum") int pageNum,
+                                  @QueryParam("pageSize") int pageSize) {
     try {
-      List<Experiment> experimentList = experimentManager.listExperimentsByStatus(status);
-      return new JsonResponse.Builder<List<Experiment>>(Response.Status.OK).success(true)
-          .result(experimentList).build();
+      List<Experiment> experimentList = experimentManager.listExperimentsByStatus(name, pageNum, pageSize);
+      PageInfo<Experiment> pageInfo = new PageInfo<Experiment>(experimentList);
+      return new JsonResponse.Builder<PageInfo<Experiment>>(Response.Status.OK).success(true)
+          .result(pageInfo).build();
     } catch (SubmarineRuntimeException e) {
       return parseExperimentServiceException(e);
     }

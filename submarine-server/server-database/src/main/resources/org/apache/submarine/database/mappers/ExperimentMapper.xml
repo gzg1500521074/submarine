@@ -43,7 +43,20 @@
   <select id="selectAll" parameterType="java.lang.String" resultMap="ExperimentEntityResultMap">
     select
     <include refid="Base_Column_List" />
-    from experiment order by create_time desc;
+    from experiment
+    order by create_time desc;
+  </select>
+
+  <select id="selectAllByName" parameterType="java.lang.String" resultMap="ExperimentEntityResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from experiment
+    <where>
+      <if test="name != null and name != ''">
+        experiment_spec LIKE CONCAT('%', #{name}, '%')
+      </if>
+    </where>
+    order by create_time desc;
   </select>
 
   <select id="select" parameterType="java.lang.String" resultMap="ExperimentEntityResultMap">

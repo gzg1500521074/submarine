@@ -28,6 +28,7 @@ import java.util.List;
 public interface ExperimentMapper {
 
   List<ExperimentEntity> selectAll();
+  List<ExperimentEntity> selectAllByName(@Param("name") String name);
 
   ExperimentEntity select(String id);
 

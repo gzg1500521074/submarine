@@ -19,6 +19,7 @@
 
 package org.apache.submarine.server.database.experiment.service;
 
+import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.submarine.commons.utils.exception.SubmarineRuntimeException;
 import org.apache.submarine.server.database.utils.MyBatisUtil;
@@ -46,6 +47,25 @@ public class ExperimentService {
     }
     return entities;
   }
+
+
+  public List<ExperimentEntity> selectAllByName(String name,
+                                                int pageNum,
+                                                int pageSize) throws SubmarineRuntimeException {
+    LOG.info("Experiment selectAllByName");
+    List<ExperimentEntity> entities;
+    try (SqlSession sqlSession = MyBatisUtil.getSqlSession()) {
+      ExperimentMapper mapper = sqlSession.getMapper(ExperimentMapper.class);
+      PageHelper.startPage(pageNum, pageSize);
+      entities = mapper.selectAllByName(name);
+      sqlSession.commit();
+    } catch (Exception e) {
+      LOG.error(e.getMessage(), e);
+      throw new SubmarineRuntimeException("Unable to get experiment entities from database");
+    }
+    return entities;
+  }
+
 
   public ExperimentEntity select(String id) throws SubmarineRuntimeException {
     LOG.info("Experiment select " + id);

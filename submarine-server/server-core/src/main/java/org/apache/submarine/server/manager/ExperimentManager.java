@@ -158,7 +158,9 @@ public class ExperimentManager {
    * @return list
    * @throws SubmarineRuntimeException the service error
    */
-  public List<Experiment> listExperimentsByStatus(String name, int pageNum, int pageSize) throws SubmarineRuntimeException {
+  public List<Experiment> listExperimentsByStatus(String name,
+                                                  int pageNum,
+                                                  int pageSize) throws SubmarineRuntimeException {
     List<Experiment> experimentList = new ArrayList<>();
     List<ExperimentEntity> entities = experimentService.selectAllByName(name, pageNum, pageSize);
 

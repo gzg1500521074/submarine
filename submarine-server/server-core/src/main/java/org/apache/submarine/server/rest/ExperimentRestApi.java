@@ -44,7 +44,6 @@ import org.apache.submarine.commons.utils.exception.SubmarineRuntimeException;
 import org.apache.submarine.server.api.experiment.Experiment;
 import org.apache.submarine.server.api.experiment.TensorboardInfo;
 import org.apache.submarine.server.api.experiment.MlflowInfo;
-import org.apache.submarine.server.database.experiment.entity.ExperimentEntity;
 import org.apache.submarine.server.manager.ExperimentManager;
 import org.apache.submarine.server.manager.ExperimentTemplateManager;
 import org.apache.submarine.server.api.experiment.ExperimentLog;

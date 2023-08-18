@@ -56,7 +56,7 @@
         experiment_spec LIKE CONCAT('%', #{name}, '%')
       </if>
     </where>
-    order by create_time desc;
+    order by create_time desc
   </select>
 
   <select id="select" parameterType="java.lang.String" resultMap="ExperimentEntityResultMap">

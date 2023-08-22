@@ -24,6 +24,7 @@
       <th>{{ 'Framework' | translate }}</th>
       <th>{{ 'Description' | translate }}</th>
       <th>{{ 'Image' | translate }}</th>
+      <th>{{ 'Action' | translate }}</th>
     </tr>
   </thead>
   <tbody>
@@ -36,6 +37,19 @@
       <td>{{ data.experimentTemplateSpec.experimentSpec.meta.framework }}</td>
       <td>{{ data.experimentTemplateSpec.description }}</td>
       <td>{{ data.experimentTemplateSpec.experimentSpec.environment.image }}</td>
+      <td>
+        <a
+          id="btn-deleteEnvironment{{ i }}"
+          nz-popconfirm
+          nzPlacement="left"
+          nzTitle="{{ 'Are you sure you want to delete?' | translate }}"
+          nzCancelText="{{ 'Cancel' | translate }}"
+          nzOkText="{{ 'Ok' | translate }}"
+          (nzOnConfirm)="onDeleteTemplate(data.experimentTemplateSpec.name)"
+        >
+          {{ 'Delete' | translate }}
+        </a>
+      </td>
     </tr>
   </tbody>
 </nz-table>

@@ -21,6 +21,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ExperimentTemplate } from '@submarine/interfaces/experiment-template';
 import { ExperimentService } from '@submarine/services/experiment.service';
 import { TemplateFormComponent } from './template-form/template-form.component';
+import { NzMessageService } from 'ng-zorro-antd';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'submarine-template-home',
@@ -28,7 +30,11 @@ import { TemplateFormComponent } from './template-form/template-form.component';
   styleUrls: ['./template-home.component.scss'],
 })
 export class TemplateHomeComponent implements OnInit {
-  constructor(private experimentService: ExperimentService) {}
+  constructor(
+    private experimentService: ExperimentService,
+    private nzMessageService: NzMessageService,
+    private translate: TranslateService
+  ) {}
 
   templateList: ExperimentTemplate[];
 
@@ -46,5 +52,17 @@ export class TemplateHomeComponent implements OnInit {
 
   updateTemplateList(msg: string) {
     this.fetchTemplateList();
+  }
+
+  onDeleteEnvironment(name: string) {
+    this.experimentService.deleteTemplate(name).subscribe(
+      () => {
+        this.fetchTemplateList();
+        this.nzMessageService.success(this.translate.instant('Delete') + ` ${name} ` + this.translate.instant('Success!'));
+      },
+      (err) => {
+        this.nzMessageService.error(err);
+      }
+    );
   }
 }

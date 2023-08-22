@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { ExperimentTemplate } from '@submarine/interfaces/experiment-template';
 
 @Component({
@@ -27,8 +27,13 @@ import { ExperimentTemplate } from '@submarine/interfaces/experiment-template';
 })
 export class TemplateListComponent implements OnInit {
   @Input() templateList: ExperimentTemplate[];
+  @Output() deleteTemplate = new EventEmitter<string>();
 
   constructor() {}
 
   ngOnInit() {}
+
+  onDeleteTemplate(name: string) {
+    this.deleteTemplate.emit(name);
+  }
 }

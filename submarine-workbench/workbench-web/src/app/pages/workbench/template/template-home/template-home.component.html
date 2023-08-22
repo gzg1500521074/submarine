@@ -30,6 +30,6 @@
       {{ 'New Template' | translate }}
     </button>
   </div>
-  <submarine-template-list [templateList]="templateList"></submarine-template-list>
+  <submarine-template-list [templateList]="templateList" (deleteTemplate)="onDeleteEnvironment($event)"></submarine-template-list>
   <submarine-template-form #form (updater)="updateTemplateList($event)"></submarine-template-form>
 </div>

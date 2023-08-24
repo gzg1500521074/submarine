@@ -61,14 +61,14 @@
           {{ 'Clone' | translate }}
         </a>
         <nz-divider nzType="vertical"></nz-divider>
-        <!-- <a
+        <a
           (click)="
             initModal.emit({ initMode: 'update', initFormType: 'customized', id: data.experimentId, spec: data.spec })
           "
         >
           {{ 'Update' | translate }}
         </a>
-        <nz-divider nzType="vertical"></nz-divider> -->
+        <nz-divider nzType="vertical"></nz-divider>
         <a nz-popconfirm nzPlacement="left" nzTitle="{{ 'Are you sure you want to delete?' | translate }}"
           nzCancelText="{{ 'Cancel' | translate }}" nzOkText="{{ 'Ok' | translate }}"
           (nzOnConfirm)="onDeleteExperiment(data.experimentId)">
